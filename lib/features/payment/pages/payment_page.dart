@@ -9,9 +9,10 @@ class PaymentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView(
+      appBar: AppBar(centerTitle: true, title: const Text('Choose Payment')),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text('Choose Payment Method'),
           ElevatedButton(
               onPressed: () {
                 Navigator.push(

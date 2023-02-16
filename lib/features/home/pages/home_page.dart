@@ -13,16 +13,19 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return BaseView(
+        appBar: AppBar(centerTitle: true, title: const Text('Home Page')),
         child: Column(
-      children: [
-        const Text('Home Page'),
-        ElevatedButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const PaymentPage()));
-            },
-            child: const Text('Payment Method'))
-      ],
-    ));
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const PaymentPage()));
+                },
+                child: const Text('Payment Method'))
+          ],
+        ));
   }
 }

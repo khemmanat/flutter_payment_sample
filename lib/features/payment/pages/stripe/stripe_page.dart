@@ -12,15 +12,16 @@ class _StripePaymentPageState extends State<StripePaymentPage> {
   @override
   Widget build(BuildContext context) {
     return BaseView(
+        appBar: AppBar(centerTitle: true, title: const Text('Pay with Stripe')),
         child: Column(
-      children: [
-        const Text('Stripe Payment Page'),
-        ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text('Back'))
-      ],
-    ));
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Back'))
+          ],
+        ));
   }
 }

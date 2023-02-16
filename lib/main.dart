@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'Payment Sample',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.teal,
       ),
       home: const HomePage(),
     );

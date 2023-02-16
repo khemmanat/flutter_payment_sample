@@ -16,15 +16,16 @@ class _OmisePaymentPageState extends State<OmisePaymentPage> {
   @override
   Widget build(BuildContext context) {
     return BaseView(
+        appBar: AppBar(centerTitle: true, title: const Text('Pay with Omise')),
         child: Column(
-      children: [
-        const Text('Omise Payment Page'),
-        ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text('Back'))
-      ],
-    ));
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Back'))
+          ],
+        ));
   }
 }
