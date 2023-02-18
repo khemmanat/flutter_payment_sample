@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_payment_sample/core/constants/payment/omise.dart';
 import 'package:flutter_payment_sample/core/widgets/base_view.dart';
-import 'package:omise_flutter/omise_flutter.dart';
+import 'package:flutter_payment_sample/external/omise/omise_flutter.dart';
+// import 'package:omise_flutter/omise_flutter.dart';
 
 class OmisePaymentPage extends StatefulWidget {
   const OmisePaymentPage({Key? key}) : super(key: key);
@@ -12,7 +13,9 @@ class OmisePaymentPage extends StatefulWidget {
 
 class _OmisePaymentPageState extends State<OmisePaymentPage> {
   OmiseFlutter omise = OmiseFlutter(OmiseConstant.publicKey);
+
   TextEditingController omiseToken = TextEditingController();
+  TextEditingController omiseSource = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,27 +28,37 @@ class _OmisePaymentPageState extends State<OmisePaymentPage> {
                 onPressed: () {
                   createToken();
                 },
-                child: Text('Create Token')),
+                child: const Text('Create Token')),
+            Text.rich(TextSpan(text: 'Token: ', children: [
+              TextSpan(
+                  text: omiseToken.text,
+                  style: const TextStyle(color: Colors.blue))
+            ])),
             ElevatedButton(
                 onPressed: () {
                   createSource();
                 },
-                child: Text('Create Source')),
+                child: const Text('Create Source')),
+            Text.rich(TextSpan(text: 'Source: ', children: [
+              TextSpan(
+                  text: omiseSource.text,
+                  style: const TextStyle(color: Colors.blue))
+            ])),
             ElevatedButton(
                 onPressed: () {
                   retrieveCapability();
                 },
-                child: Text('Retrieve Capability')),
+                child: const Text('Retrieve Capability')),
             ElevatedButton(
                 onPressed: () {
                   charge();
                 },
-                child: Text('Charge'))
-            // ElevatedButton(
-            //     onPressed: () {
-            //       Navigator.pop(context);
-            //     },
-            //     child: const Text('Back'))
+                child: const Text('Charge')),
+            Text('CHARGE'),
+            Text.rich(TextSpan(text: 'Charge Detail: ', children: [
+              TextSpan(
+                  text: 'PENDING', style: const TextStyle(color: Colors.blue))
+            ])),
           ],
         ));
   }
@@ -53,16 +66,18 @@ class _OmisePaymentPageState extends State<OmisePaymentPage> {
   createToken() async {
     final token = await omise.token
         .create('JOHN DOE', '4242424242424242', '10', '2024', '123');
+    print('TOKEN ID: ${token.id}');
     setState(() {
       omiseToken.text = token.id!;
     });
-    // print('TOKEN: ${token.id}');
   }
 
   createSource() async {
-    final source =
-        await omise.source.create(10000, 'thb', 'internet_banking_bay');
+    final source = await omise.source.create(10000, 'thb', 'alipay');
     print('SOURCE ID: ${source.id}');
+    setState(() {
+      omiseSource.text = source.id!;
+    });
   }
 
   retrieveCapability() async {
@@ -74,12 +89,13 @@ class _OmisePaymentPageState extends State<OmisePaymentPage> {
 
   charge() async {
     final charge = await omise.client.post('api.omise.co', [
-      '/charges'
+      'charges'
     ], data: {
       'amount': 10000,
       'currency': 'thb',
-      'source': 'src_test_5uu37nqrpwhsa13ui2z',
-      'return_uri': 'http://www.example.com'
+      'card': omiseToken.text,
+      // return_uri :  This is the url used for redirecting your customer back when 3-D Secure is used.
+      // 'return_uri': 'http://localhost:3000'
     });
     print('CHARGE: $charge');
   }
