@@ -8,10 +8,12 @@ import './exception.dart';
 
 class Client {
   late final String _publicKey;
+  late final String _secretKey;
   late final String _apiVersion;
+
   late String version;
 
-  Client(this._publicKey, this._apiVersion);
+  Client(this._publicKey, this._secretKey,this._apiVersion);
 
   final http.Client _httpClient = http.Client();
 
@@ -51,7 +53,7 @@ class Client {
     print('Check public key: $OmiseConstant.secretKey');
     // print('Basic ${base64Encode(utf8.encode('$_publicKey:'))}');
     // return 'Basic ${base64Encode(utf8.encode('$_publicKey:'))}';
-    return 'Basic ${base64Encode(utf8.encode('${OmiseConstant.secretKey}:'))}';
+    return 'Basic ${base64Encode(utf8.encode('$_secretKey:'))}';
   }
 
   /// Create a header

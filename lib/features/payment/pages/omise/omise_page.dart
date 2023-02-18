@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_payment_sample/core/constants/payment/omise.dart';
 import 'package:flutter_payment_sample/core/widgets/base_view.dart';
 import 'package:flutter_payment_sample/external/omise/omise_flutter.dart';
-// import 'package:omise_flutter/omise_flutter.dart';
 
 class OmisePaymentPage extends StatefulWidget {
   const OmisePaymentPage({Key? key}) : super(key: key);
@@ -12,7 +11,7 @@ class OmisePaymentPage extends StatefulWidget {
 }
 
 class _OmisePaymentPageState extends State<OmisePaymentPage> {
-  OmiseFlutter omise = OmiseFlutter(OmiseConstant.publicKey);
+  OmiseFlutter omise = OmiseFlutter(OmiseConstant.publicKey, OmiseConstant.secretKey);
 
   TextEditingController omiseToken = TextEditingController();
   TextEditingController omiseSource = TextEditingController();

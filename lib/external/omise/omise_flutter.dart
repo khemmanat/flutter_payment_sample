@@ -18,6 +18,8 @@ class OmiseFlutter {
   // Omise Public Key
   final String publicKey;
 
+  final String secretKey;
+
   // HTTP Client
   late Client _client;
   Client get client {
@@ -30,9 +32,9 @@ class OmiseFlutter {
   late CapabilityResource capability;
 
   // Constructor
-  OmiseFlutter(this.publicKey, [this.apiVersion = '2019-05-29']) {
+  OmiseFlutter(this.publicKey, this.secretKey,[this.apiVersion = '2019-05-29']) {
     //
-    _client = Client(publicKey, apiVersion);
+    _client = Client(publicKey, secretKey, apiVersion);
     _client.version = _VERSION;
     _initResources();
   }
